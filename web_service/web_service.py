@@ -1,9 +1,10 @@
 from flask import Flask, render_template_string, request, redirect
 import requests
+import os
 
 app = Flask(__name__)
 
-API_URL = "https://hello-cloud4.onrender.com/ziyaretciler"
+API_URL = os.environ.get("API_URL")
 
 HTML = """
 <!doctype html>
@@ -48,5 +49,3 @@ def index():
     isimler = resp.json() if resp.status_code == 200 else []
     return render_template_string(HTML, isimler=isimler)
 
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000)
